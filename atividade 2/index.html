@@ -18,57 +18,12 @@
         <div class="cadastro">
             <h2>Cadastro do Usuário</h2>
             <form id="Formulario" action="cadastrado.html" method="post">
-                <label for="nom_nome">Nome:</label>
-                <input type="text" name="nome" id="nom_nome" size="30" required><br>
-                <label for="nome_login">Login:</label>
-                <input type="text" name="login" id="nome_login" size="30" required><br>
-                <label for="nome_senha">Senha:</label>
-                <input type="password" name="senha" id="nome_senha" size="30" required><br>
-                <label for="nom_rua">Rua:</label>
-                <input type="text" name="rua" id="nom_rua" size="60">
-                <label for="nom_numero">Número:</label>
-                <input type="number" name="numero" id="nom_numero" size="12" required><br>
-                <label for="nom_bairro">Bairro:</label>
-                <input type="text" name="bairro" id="nom_bairro" size="30">
-                <label for="nom_cidade">Cidade:</label>
-                <input type="text" name="cidade" id="nom_cidade" size="30">
-                <label>Estado:</label>
-                <select name='estado' id='estado' required>
-                    <option value="AC" selected>Acre </option>
-                    <option value="AL">Alagoas </option>
-                    <option value="AM">Amapá </option>
-                    <option value="AM">Amazonas </option>
-                    <option value="BA">Bahia </option>
-                    <option value="CE">Ceará </option>
-                    <option value="DF">Distrito Federal </option>
-                    <option value="ES">Espírito Santo </option>
-                    <option value="GO">Goiás </option>
-                    <option value="MA">Maranhão </option>
-                    <option value="MS">Mato Grosso do Sul </option>
-                    <option value="MG">Minas Gerais </option>
-                    <option value="PR">Paraíba </option>
-                    <option value="PA">Paraná </option>
-                    <option value="PE">Pernambuco</option>
-                    <option value="PI">Piauí </option>
-                    <option value="RJ">Rio de Janeiro </option>
-                    <option value="RN">Rio Grande do Norte </option>
-                    <option value="RS">Rio Grande do Sul </option>
-                    <option value="RO">Rondônia </option>
-                    <option value="RR">Roraima </option>
-                    <option value="SC">Santa Catarina </option>
-                    <option value="SP">São Paulo </option>
-                    <option value="SE">Sergipe </option>
-                    <option value="TO">Tocantins </option>
-                </select><br>
-                <label for="sex_m"> Sexo:</label>
-                <input type="radio" name="sexo" id="sex_m" value="Masculino" required>
-                <label for="sex_m"> Masculino</label>
-                <input type="radio" name="sexo" id="sex_f" value="Feminino" required>
-                <label for="sex_f"> Feminino</label><br>
-                <label for="nom_email">Email:</label>
-                <input type="email" name="email" id="nom_email" size="30" required><br>
-                <input type="checkbox" name="notifemail" id="notif_email" value="true">
-                <label for="notif_email"> Aceito receber notificações pelo email</label><br>
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome" required><br>
+                <label for="cpf">CPF:</label>
+                <input type="text" name="cpf" id="cpf" minlength="14" maxlength="14" placeholder="000.000.000-00" required><br>
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" required><br>
                 <div  class="buttons">
                     <button type="reset" class="button">Apagar</button>
                     <button type="submit" class="button">Enviar</button>
@@ -83,9 +38,62 @@
         document.getElementById('Formulario').addEventListener('submit', function(event) {
             event.preventDefault();
     
-            alert("Forms preenchido com sucesso!");
+            var cpfInput = document.getElementById('cpf');
+            var cpfValue = cpfInput.value;
+            if (!isValidCPF(cpfValue)) {
+                alert("CPF inválido. Por favor, insira um CPF válido.");
+                return;
+            }
+
+            alert("Formulário preenchido com sucesso!");
             document.getElementById('Formulario').reset();
         });
-    </script>    
+
+        function isValidCPF(cpf) {
+            cpf = cpf.replace(/[^\d]+/g,''); // Remove non-numeric characters
+            if (cpf == '' || cpf.length != 11 || cpf =='00000000000') return false;
+            
+            var sum = 0;
+            var remainder;
+            for (var i = 1; i <= 9; i++) {
+                sum += parseInt(cpf.substring(i-1, i)) * (11 - i);
+            }
+            remainder = (sum * 10) % 11;
+            
+            if ((remainder == 10) || (remainder == 11)) remainder = 0;
+            if (remainder != parseInt(cpf.substring(9, 10))) return false;
+            
+            sum = 0;
+            for (var i = 1; i <= 10; i++) {
+                sum += parseInt(cpf.substring(i-1, i)) * (12 - i);
+            }
+            remainder = (sum * 10) % 11;
+            
+            if ((remainder == 10) || (remainder == 11)) remainder = 0;
+            if (remainder != parseInt(cpf.substring(10, 11))) return false;
+            
+            return true;
+        }
+
+        document.getElementById('cpf').addEventListener('input', function(event) {
+            var cpfInput = event.target;
+            var cpf = cpfInput.value.replace(/\D/g, '');
+            var formattedCPF = '';
+
+            if (cpf.length > 0) {
+                formattedCPF += cpf.substring(0, 3);
+                if (cpf.length > 3) {
+                    formattedCPF += '.' + cpf.substring(3, 6);
+                    if (cpf.length > 6) {
+                        formattedCPF += '.' + cpf.substring(6, 9);
+                        if (cpf.length > 9) {
+                            formattedCPF += '-' + cpf.substring(9, 11);
+                        }
+                    }
+                }
+            }
+            cpfInput.value = formattedCPF;
+        });
+    </script>  
 </body>
 </html>

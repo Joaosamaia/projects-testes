@@ -28,6 +28,7 @@ form {
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 20px;
+    margin: 0 25% 0 25%;
 }
 
 .cadastro {
@@ -35,6 +36,7 @@ form {
     text-align: center;
     z-index: 0;
 }
+
 .cadastro h2{
   margin-bottom: 5px;
   color: #000;
@@ -47,7 +49,11 @@ input, select {
     font-weight: bold;
     color: #000000;
     text-align: left;
-  }
+    width: 60%;
+    margin: auto;
+    display: block;
+    margin-top: 10px;
+}
 
 .buttons{
     display: block;
