@@ -1,15 +1,17 @@
-/* Reset default margin and padding */
-html, body, header, main, footer {
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
 }
 
-h2 {
-    text-align: center;
+main {
+    flex: 1; /* This allows the main content area to grow and fill remaining space */
+    padding: 20px;
 }
 
-/* Basic styles for the header */
 #header {
     background-color: #333;
     color: #fff;
@@ -17,138 +19,60 @@ h2 {
     text-align: center;
 }
 
-/* Basic styles for the main content area */
 main {
-    justify-content: space-around;
     padding: 20px;
 }
 
-/* Basic styles for form container */
-#content {
-    flex: 1;
-    margin-right: 20px;
-    margin-left: 10px;
-    text-align: center;
-}
-
-/* Form styles */
 form {
     background-color: #45acc5;
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 20px;
+}
+
+.cadastro {
+    color:#ffffff;
     text-align: center;
+    z-index: 0;
+}
+.cadastro h2{
+  margin-bottom: 5px;
+  color: #000;
 }
 
-.form-group {
-    margin-bottom: 20px;
-    padding-right: 10px;
-    text-align: center;
-}
+input, select {
+    background-color: #32d8f1;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    text-align: left;
+  }
 
-/* Basic styling for template section */
-#templates {
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* Basic styling for template container */
-.template-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 20px;
-}
-
-/* Basic styling for template choice */
-.template-choice {
-    cursor: pointer;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-
-label {
+.buttons{
     display: block;
-    margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="file"],
-input[type="button"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    display: block;
-    width: 150px;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 0 auto;
-}
-
-#element-type{
-    display: block;
-    width: 300px;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 0 auto;
-}
-
-/* Basic styles for the preview container */
-#preview {
-    flex: 1;
-}
-
-#preview h2 {
-    margin-bottom: 10px;
-}
-
-#landing-page-preview {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    min-height: 400px;
-}
-
-#generated-code {
-    background-color: #222222;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    padding-left: 30%;
-    min-height: 400px;
-    color: forestgreen;
-}
-
-#warning{
-    color: forestgreen;
+    position: sticky;
     text-align: center;
-    text-decoration: underline;
-    background-color: #222222;
-    padding: 20px;
-    margin-top: 0cap;
-}      
+}
 
-/* Footer styles */
+.button{
+    color:#ffffff;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #000000;
+    border: 1.5px outset #696969;
+}
+
+.buttons button:hover {
+    color: #000000;
+    background-color: #32d8f1;
+}
+
 footer {
     background-color: #333;
     color: #fff;
     padding: 20px;
     text-align: center;
+    flex-shrink: 0;
 }
