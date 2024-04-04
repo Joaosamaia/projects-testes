@@ -42,6 +42,13 @@ form {
   color: #000;
 }
 
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin: 0 0 5px 0;
+
+}
+
 input, select {
     background-color: #32d8f1;
     font-family: Arial, sans-serif;
@@ -63,6 +70,9 @@ input, select {
 
 .button{
     color:#ffffff;
+    width: 80px;
+    height: 30px;
+    font-size: 10px;
     text-align: center;
     text-decoration: none;
     font-weight: bold;
@@ -70,7 +80,7 @@ input, select {
     border: 1.5px outset #696969;
 }
 
-.buttons button:hover {
+.buttons button:hover, button:focus  {
     color: #000000;
     background-color: #32d8f1;
 }
