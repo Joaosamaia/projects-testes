@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="atividade 2 de testes">
+    <meta name="keywords" content="HTML, CSS, JS, atividade, testes">
+    <meta name="author" content="João Lucas S. A. Maia">
+    <title>Formulario Teste</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+    <header id="header">
+        <h1>Formulario Teste</h1>
+        <h5>by João Lucas S. A. Maia</h5>
+    </header>
+    <main>
+        <div class="cadastro">
+            <h2>Cadastro do Usuário</h2>
+            <form id="Formulario" action="cadastrado.html" method="post">
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome" required><br>
+                <label for="cpf">CPF:</label>
+                <input type="text" name="cpf" id="cpf" minlength="14" maxlength="14" placeholder="000.000.000-00" required><br>
+                <div id="cpfErrorMessage" class="error-message"></div>
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" required><br>
+                <div  class="buttons">
+                    <button type="reset" class="button">Apagar</button>
+                    <button type="submit" class="button">Enviar</button>
+                </div>
+            </form>
+        </div>
+        <section class="container">
+			<iframe class="mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3950.594187379012!2d-34.9426803263312!3d-8.040706080294479!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ab199240000001%3A0xca8aee19ccd4b76f!2sFICR%20-%20Faculdade%20Cat%C3%B3lica%20Imaculada%20Concei%C3%A7%C3%A3o%20do%20Recife!5e0!3m2!1spt-BR!2sbr!4v1711409679434!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+		</section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Formulario - Atividade 2 de Testes</p>
+    </footer>
+    <script>
+        document.getElementById('Formulario').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var cpfInput = document.getElementById('cpf');
+            var cpfValue = cpfInput.value;
+            if (!isValidCPF(cpfValue)) {
+                alert("CPF inválido. Por favor, insira um CPF válido.");
+                return;
+            }
+
+            alert("Formulário preenchido com sucesso!");
+            document.getElementById('Formulario').reset();
+        });
+
+        document.getElementById('cpf').addEventListener('input', function(event) {
+            var cpfInput = event.target;
+            var cpfValue = cpfInput.value;
+            var isValid = isValidCPF(cpfValue);
+
+            var errorMessageElement = document.getElementById('cpfErrorMessage');
+            if (!isValid && cpfValue.length == 14) {
+                errorMessageElement.textContent = "Por favor digite um CPF válido.";
+            } else if (isValid || cpfValue != 14) {
+                errorMessageElement.textContent = "";
+            }
+
+            var formattedCPF = '';
+            cpf = cpfValue.replace(/\D/g, '');
+            if (cpf.length > 0) {
+                formattedCPF += cpf.substring(0, 3);
+                if (cpf.length > 3) {
+                    formattedCPF += '.' + cpf.substring(3, 6);
+                    if (cpf.length > 6) {
+                        formattedCPF += '.' + cpf.substring(6, 9);
+                        if (cpf.length > 9) {
+                            formattedCPF += '-' + cpf.substring(9, 11);
+                        }
+                    }
+                }
+            }
+            cpfInput.value = formattedCPF;
+        });
+
+        document.getElementById('cpf').addEventListener('keydown', function(event) {
+            var invalidInputs = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '[', '{', ']', '}', '|', '\\', ';', ':', "'", '"', ',', '<', '.', '>', '/', '?', '`', '~', ' ', null];
+            var keyPressed = event.key;
+            var errorMessageElement = document.getElementById('cpfErrorMessage');
+
+            if (invalidInputs.includes(keyPressed)) {
+                event.preventDefault();
+                errorMessageElement.textContent = "Por favor digite apenas números";
+            }
+        });
+
+        function isValidCPF(cpf) {
+            cpf = cpf.replace(/[^\d]+/g,'');
+            if (cpf == '' || cpf.length != 11 || cpf =='00000000000') return false;
+
+            var sum = 0;
+            var remainder;
+            for (var i = 1; i <= 9; i++) {
+                sum += parseInt(cpf.substring(i-1, i)) * (11 - i);
+            }
+            remainder = (sum * 10) % 11;
+            if ((remainder == 10) || (remainder == 11)) remainder = 0;
+            if (remainder != parseInt(cpf.substring(9, 10))) return false;
+            
+            sum = 0;
+            for (var i = 1; i <= 10; i++) {
+                sum += parseInt(cpf.substring(i-1, i)) * (12 - i);
+            }
+            remainder = (sum * 10) % 11;
+            if ((remainder == 10) || (remainder == 11)) remainder = 0;
+            if (remainder != parseInt(cpf.substring(10, 11))) return false;
+            
+            return true;
+        }
+    </script>  
+</body>
+</html>
