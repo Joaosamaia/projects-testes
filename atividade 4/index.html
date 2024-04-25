@@ -19,14 +19,14 @@
             <h2>Cadastro do Usuário</h2>
             <form id="Formulario" action="cadastrado.html" method="post">
                 <label for="nome">Nome:</label>
-                <input type="text" name="nome" id="nome" maxlength="60" placeholder="meu nome" required><br>
+                <input type="text" name="nome" id="nome" maxlength="60" placeholder="Nome" required><br>
                 <label for="cpf">CPF:</label>
                 <input type="text" name="cpf" id="cpf" minlength="14" maxlength="14" placeholder="000.000.000-00" required><br>
                 <div id="cpfErrorMessage" class="error-message"></div>
                 <label for="email">Email:</label>
                 <input type="email" name="email" id="email" placeholder="meu@email.com" required><br>
                 <label for="password">Senha:</label>
-                <input type="password" name="password" id="password" maxlength="8" placeholder="minha senha" required><br>
+                <input type="password" name="password" id="password" minlength="8"  maxlength="8" placeholder="Senha de oito digitos" required><br>
                 <div  class="buttons">
                     <button type="reset" class="button">Apagar</button>
                     <button type="submit" class="button">Enviar</button>
