@@ -48,6 +48,7 @@ label {
     font-family: Arial, sans-serif;
     font-size: 20px;
 }
+
 input, select {
     background-color: #32d8f1;
     font-family: Arial, sans-serif;
@@ -57,20 +58,20 @@ input, select {
     text-align: left;
     margin: auto;
     display: block;
+    width: 65%;
     margin-top: 10px;
     margin-bottom: 15px;
 }
 
 input[type="radio"] {
     display: inline;
-    width: 5;
     text-align: left;
+    width: 5%;
     transform: scale(1.2);
 }
 
 input[type="checkbox"] {
     display: inline;
-    width: 5;
     text-align: left;
 }
 

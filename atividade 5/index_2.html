@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="atividade 2 de testes">
+    <meta name="keywords" content="HTML, CSS, JS, atividade, testes">
+    <meta name="author" content="João Lucas S. A. Maia">
+    <title>Formulario 2 Teste</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+    <header id="header">
+        <h1>Formulario 2 Teste</h1>
+        <h5>by João Lucas S. A. Maia</h5>
+    </header>
+    <main>
+        <div class="cadastro">
+            <h2>Cadastro do Usuário</h2>
+            <form id="Formulario" action="cadastrado.html" method="post">
+                <label for="nome_login">Login:</label>
+                <input type="text" name="login" id="nome_login" pattern="[A-Za-z]+" size="60" required><br>
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome" size="60" maxlength="60" placeholder="Nome" required><br>
+                <label for="cpf">CPF:</label>
+                <input type="text" name="cpf" id="cpf" size="60" minlength="14" maxlength="14" placeholder="000.000.000-00" required><br>
+                <div id="cpfErrorMessage" class="error-message"></div>
+                <label for="password">Senha:</label>
+                <input type="password" name="password" id="password" size="60" minlength="8"  maxlength="8" placeholder="Senha de oito digitos" required><br>
+                <label for="nom_rua">Rua:</label>
+                <input type="text" name="rua" id="nom_rua" size="60">
+                <label for="nom_numero">Número:</label>
+                <input type="number" name="numero" id="nom_numero" size="60" min="1" max="1000"><br>
+                <label for="nom_bairro">Bairro:</label>
+                <input type="text" name="bairro" id="nom_bairro" size="60">
+                <label for="nom_cidade">Cidade:</label>
+                <input type="text" name="cidade" id="nom_cidade" size="60">
+                <label>Estado:</label>
+                <select name='estado' id='estado' required>
+                    <option value="AC">Acre </option>
+                    <option value="AL">Alagoas </option>
+                    <option value="AM">Amapá </option>
+                    <option value="AM">Amazonas </option>
+                    <option value="BA">Bahia </option>
+                    <option value="CE">Ceará </option>
+                    <option value="DF">Distrito Federal </option>
+                    <option value="ES">Espírito Santo </option>
+                    <option value="GO">Goiás </option>
+                    <option value="MA">Maranhão </option>
+                    <option value="MS">Mato Grosso do Sul </option>
+                    <option value="MG">Minas Gerais </option>
+                    <option value="PR">Paraíba </option>
+                    <option value="PA">Paraná </option>
+                    <option value="PE" selected>Pernambuco</option>
+                    <option value="PI">Piauí </option>
+                    <option value="RJ">Rio de Janeiro </option>
+                    <option value="RN">Rio Grande do Norte </option>
+                    <option value="RS">Rio Grande do Sul </option>
+                    <option value="RO">Rondônia </option>
+                    <option value="RR">Roraima </option>
+                    <option value="SC">Santa Catarina </option>
+                    <option value="SP">São Paulo </option>
+                    <option value="SE">Sergipe </option>
+                    <option value="TO">Tocantins </option>
+                </select><br>
+                <label for="sex_m"> Sexo:   </label>
+                <input type="radio" name="sexo" id="sex_m" value="Masculino" required>
+                <label for="sex_m">   Masculino</label>
+                <input type="radio" name="sexo" id="sex_f" value="Feminino" required>
+                <label for="sex_f">   Feminino</label>
+                <input type="radio" name="sexo" id="sex_o" value="other" required>
+                <label for="sex_o">   Outro</label>
+                <input type="radio" name="sexo" id="sex_u" value="unanswered" required>
+                <label for="sex_u">   Prefiro não responder</label><br>
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" size="60" placeholder="meu@email.com" required><br>
+                <input type="checkbox" name="notifemail" id="notif_email" value="true">
+                <label for="notif_email"> Aceito receber noitificações pelo email</label><br>
+                <div  class="buttons">
+                    <button type="reset" class="button">Apagar</button>
+                    <button type="submit" class="button">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Formulario - Atividade 2 de Testes</p>
+    </footer>
+    <script>
+        document.getElementById('Formulario').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var cpfInput = document.getElementById('cpf');
+            var cpfValue = cpfInput.value;
+            if (!isValidCPF(cpfValue)) {
+                alert("CPF inválido. Por favor, insira um CPF válido.");
+                return;
+            }
+
+            alert("Formulário preenchido com sucesso!");
+            document.getElementById('Formulario').reset();
+        });
+
+        document.getElementById('cpf').addEventListener('input', function(event) {
+            var cpfInput = event.target;
+            var cpfValue = cpfInput.value;
+            var isValid = isValidCPF(cpfValue);
+
+            var errorMessageElement = document.getElementById('cpfErrorMessage');
+            if (!isValid && cpfValue.length == 14) {
+                errorMessageElement.textContent = "Por favor digite um CPF válido.";
+            } else if (isValid || cpfValue != 14) {
+                errorMessageElement.textContent = "";
+            }
+
+            var formattedCPF = '';
+            cpf = cpfValue.replace(/\D/g, '');
+            if (cpf.length > 0) {
+                formattedCPF += cpf.substring(0, 3);
+                if (cpf.length > 3) {
+                    formattedCPF += '.' + cpf.substring(3, 6);
+                    if (cpf.length > 6) {
+                        formattedCPF += '.' + cpf.substring(6, 9);
+                        if (cpf.length > 9) {
+                            formattedCPF += '-' + cpf.substring(9, 11);
+                        }
+                    }
+                }
+            }
+            cpfInput.value = formattedCPF;
+        });
+
+        document.getElementById('cpf').addEventListener('keydown', function(event) {
+            var invalidInputs = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '[', '{', ']', '}', '|', '\\', ';', ':', "'", '"', ',', '<', '.', '>', '/', '?', '`', '~', ' ', null];
+            var keyPressed = event.key;
+            var errorMessageElement = document.getElementById('cpfErrorMessage');
+
+            if (invalidInputs.includes(keyPressed)) {
+                event.preventDefault();
+                errorMessageElement.textContent = "Por favor digite apenas números";
+            }
+        });
+
+        function isValidCPF(cpf) {
+            cpf = cpf.replace(/[^\d]+/g,'');
+            if (cpf == '' || cpf.length != 11 || cpf =='00000000000') return false;
+
+            var sum = 0;
+            var remainder;
+            for (var i = 1; i <= 9; i++) {
+                sum += parseInt(cpf.substring(i-1, i)) * (11 - i);
+            }
+            remainder = (sum * 10) % 11;
+            if ((remainder == 10) || (remainder == 11)) remainder = 0;
+            if (remainder != parseInt(cpf.substring(9, 10))) return false;
+            
+            sum = 0;
+            for (var i = 1; i <= 10; i++) {
+                sum += parseInt(cpf.substring(i-1, i)) * (12 - i);
+            }
+            remainder = (sum * 10) % 11;
+            if ((remainder == 10) || (remainder == 11)) remainder = 0;
+            if (remainder != parseInt(cpf.substring(10, 11))) return false;
+            
+            return true;
+        }
+    </script>  
+</body>
+</html>
