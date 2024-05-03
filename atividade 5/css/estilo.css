@@ -23,7 +23,7 @@ form {
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 20px;
-    margin: 0 25% 0 25%;
+    margin: 0 15% 0 15%;
 }
 
 .cadastro {
@@ -73,6 +73,7 @@ input[type="radio"] {
 input[type="checkbox"] {
     display: inline;
     text-align: left;
+    width: 5%;
 }
 
 .buttons{
